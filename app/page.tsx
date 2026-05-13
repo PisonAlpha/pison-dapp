@@ -78,9 +78,25 @@ export default function Home() {
   async function connectWallet() {
     try {
       if (!(window as any).ethereum) {
-        alert("Install MetaMask");
-        return;
-      }
+
+          const isMobile =
+            /Android|iPhone|iPad|iPod/i.test(
+              navigator.userAgent
+            );
+
+          if (isMobile) {
+
+            window.location.href =
+              "https://metamask.app.link/dapp/" +
+              window.location.host;
+
+            return;
+          }
+
+          alert("Install MetaMask");
+
+          return;
+        }
 
       const accounts = await (window as any).ethereum.request({
         method: "eth_requestAccounts",
